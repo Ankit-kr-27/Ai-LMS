@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import logo from '../assets/logo.jpg'
+import logo from '../assets/logo.png'
 import google from "../assets/google.jpg"
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEye } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-export const serverUrl = "http://localhost:8000"
+import { serverUrl } from '../App'
 import { toast } from 'react-toastify'
 import  ClipLoader  from "react-spinners/ClipLoader"
 import { useDispatch } from 'react-redux'
