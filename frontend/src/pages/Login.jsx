@@ -1,15 +1,16 @@
 import { useState , React } from 'react';
-import logo from '../assets/logo.jpg'
+import logo from '../assets/logo.png'
 import google from "../assets/google.jpg"
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEye } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ClipLoader } from "react-spinners";
-export const serverUrl = "http://localhost:8000";
+import { serverUrl } from '../App'
 import { toast } from "react-toastify";
 import { useDispatch } from 'react-redux'
 import { setUserData } from '../redux/userSlice'
+
 
 const Login = () => {
       const [show, setShow] = useState(false)
@@ -25,8 +26,10 @@ const Login = () => {
             const result = await axios.post(serverUrl + "/api/auth/login", {
                 email,
                 password,
+            },{
+                withCredentials: true
             });
-            dispatch(setUserData(result.data))
+            dispatch(setUserData(result.data.user))
             setLoading(false);
             navigate("/");
             toast.success("Login successfully")
@@ -60,7 +63,7 @@ const Login = () => {
 
                   <button className='w-[80%] h-[40px] bg-black text-white cursor-pointer flex items-center justify-center rounded-[5px]' onClick={handelLogin} disabled={loading}>{loading ? <ClipLoader size={30} color = 'white'/> : "Login"}</button>
 
-                  <span className='text-[13px] cursor-pointer text-[#585757'>Forget your Password ?</span>
+                  <span className='text-[13px] cursor-pointer text-[#585757' onClick={() => navigate("/forget")}>Forget your Password ?</span>
 
                   <div className='w-[80%] flex items-center gap-2'>
                       <div className='w-[25%] h-[0.5px] bg-[#c4c4c4]'></div>

@@ -1,9 +1,13 @@
 import React from 'react'
+import { Nav } from '../component/Nav'
 
 const Home = () => {
+   console.log(Nav);
   return (
-    <div className='text-2xl text-red-700'>
-        Home
+    <div className='w-[100%] overflow-hidden'>
+        <div className='w-[100%] lg:h-[140vh] h-[70vh] relative'>
+          <Nav />
+        </div>
     </div>
   )
 }
