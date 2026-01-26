@@ -10,6 +10,8 @@ import { toast } from 'react-toastify'
 import  ClipLoader  from "react-spinners/ClipLoader"
 import { useDispatch } from 'react-redux'
 import { setUserData } from '../redux/userSlice'
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../../utils/firebase.js';
 
 const Signup = () => {
     const [show, setShow] = useState(false)
@@ -34,6 +36,35 @@ const Signup = () => {
             setLoading(false)
             navigate("/");
             toast.success("Signup successful")
+        } catch (error) {
+            console.log(error)
+            setLoading(false)
+            toast.error("Signup failed")
+        }
+    }
+
+    const googleSignUp = async () => {
+        try {
+            const response = await signInWithPopup(auth, provider)
+            console.log(response)
+            let user = response.user
+            let name = user.displayName
+            let email = user.email
+            setLoading(true)
+            try {
+                const result = await axios.post(serverUrl + "/api/auth/googleauth", {
+                    name,
+                    email,
+                    role
+                }, {withCredentials: true})
+                dispatch(setUserData(result.data))
+                navigate("/");
+                toast.success("Signup successful")
+            } catch (error) {
+                console.log(error)
+                setLoading(false)
+                toast.error("Signup failed")
+            }
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -76,10 +107,15 @@ const Signup = () => {
                     <div className='w-[50%] text-[15px] text-[#6f6f6f] flex items-center justify-center'>Or continue</div>
                     <div className='w-[25%] h-[0.5px] bg-[#c4c4c4]'></div>
                 </div>
-                <div className='w-[80%] h-[40px] border-1 border-[black] rounded-[5px] flex items-center justify-center'>
+                <button
+                    type="button"
+                    className='w-[80%] h-[40px] border-1 border-[black] rounded-[5px] flex items-center justify-center'
+                    onClick={googleSignUp}
+                >
                     <img src={google} className='w-[25px]' alt="" />
                     <span className='text-[18px] text-gray-500'>oogle</span>
-                </div>
+                </button>
+
                 <div className='text-[#6f6f6f]'>already have an account? <span className='underline underline-offset-1 text-[black] cursor-pointer' onClick={()=>navigate ("/login")}>Login</span></div>
             </div>
 
