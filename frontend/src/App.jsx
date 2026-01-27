@@ -11,6 +11,7 @@ import Profile from './pages/Profile'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import ForgetPassword from './pages/ForgetPassword'
+import EditProfile from './pages/EditProfile'
 
 const App = () => {
   getCurrentUser()
@@ -23,7 +24,8 @@ const App = () => {
       <Route path="/signup" element={!userData ? <Signup/> : <Navigate to= {"/"}/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/profile" element={userData ? <Profile/> : <Navigate to= {"/signup"}/>} />
-      <Route path="/forget" element={!userData ? <ForgetPassword/> : <Navigate to= {"/"}/>} />
+      <Route path="/forget" element={userData ? <ForgetPassword/> : <Navigate to= {"/"}/>} />
+      <Route path="/editprofile" element={userData ? <EditProfile/> : <Navigate to= {"/"}/>} />
     </Routes>
     </>
   )
