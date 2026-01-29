@@ -6,6 +6,7 @@ dotenv.config();
 import authRouter from './route/authRoute.js';
 import cors from "cors"
 import userRouter from './route/userRoute.js';
+import courseRouter from './route/courseRoute.js';
 
 const PORT = process.env.PORT || 8000;
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors({
 
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
+app.use('/api/course', courseRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
