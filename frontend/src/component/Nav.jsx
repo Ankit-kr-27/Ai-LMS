@@ -67,7 +67,7 @@ export const Nav = () => {
           {userData && <Avatar />}
 
           {userData?.role === "educator" && (
-            <div className='px-[20px] py-[10px] border-2 border-white text-white bg-black rounded-[10px] cursor-pointer'>
+            <div className='px-[20px] py-[10px] border-2 border-white text-white bg-black rounded-[10px] cursor-pointer' onClick={() => navigate("/dashboard")}>
               Dashboard
             </div>
           )}
@@ -134,7 +134,7 @@ export const Nav = () => {
           </div>
 
           {userData?.role === "educator" && (
-            <div className='w-[200px] h-[50px] bg-black text-white flex items-center justify-center rounded-[10px]'>
+            <div className='w-[200px] h-[50px] bg-black text-white flex items-center justify-center rounded-[10px]' onClick={() => navigate("/dashboard")}>
               Dashboard
             </div>
           )}
