@@ -85,9 +85,9 @@ const Courses = () => {
                   </td>
 
                   {course.price ? (
-                    <td className='px-4 py-3'>{course.price}</td>
+                    <td className='px-4 py-3'>₹{course.price}</td>
                   ) : (
-                    <td className='px-4 py-3'>$ NA</td>
+                    <td className='px-4 py-3'>₹ NA</td>
                   )}
 
                   <td className='px-4 py-3'>
