@@ -8,8 +8,10 @@ import { AiFillOpenAI } from "react-icons/ai";
 import { SiGoogledataproc } from "react-icons/si";
 import { BsClipboardDataFill } from "react-icons/bs";
 import { SiOpenaigym } from "react-icons/si";
+import { useNavigate } from 'react-router-dom';
 
 const ExploreCourses = () => {
+    const navigate = useNavigate()
     return (
         <div className='w-[100vw] min-h[50vh] lg:h-[50vh] flex flex-col lg:flex-row items-center justify-center gap-4 px-[30px]'>
             {/* left div */}
@@ -17,7 +19,7 @@ const ExploreCourses = () => {
                 <span className='text-[35px] font-semibold'>Explore Courses</span>
                 <span className='text-[35px] font-semibold'>Our Courses</span>
                 <p className='text-[17px]'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus enim quidem quia cupiditate iste? Earum repudiandae molestiae harum ipsa sint a rem, deleniti perferendis similique, eligendi tenetur reiciendis delectus possimus!.</p>
-                <button className='px-[20px] py-[10px] border-2 bg-[black] border-white text-white rounded-[10px] text-[18px] font-light flex gap-2 mt-[40px] cursor-pointer'>Explore Courses <SiViaplay className='w-[30px] h-[30px] lg:fill-white ' /></button>
+                <button className='px-[20px] py-[10px] border-2 bg-[black] border-white text-white rounded-[10px] text-[18px] font-light flex gap-2 mt-[40px] cursor-pointer' onClick={() => navigate("/allcourses")}>Explore Courses <SiViaplay className='w-[30px] h-[30px] lg:fill-white ' /></button>
             </div>
 
             {/* right div */}

@@ -8,6 +8,9 @@ import { useParams } from 'react-router-dom';
 import { serverUrl } from '../../App';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { setCourseData } from '../../redux/courseSlice';
 
 const EditCourse = () => {
   const navigate = useNavigate()
@@ -24,6 +27,9 @@ const EditCourse = () => {
   const [frontendImage, setFrontendImage] = useState(img)
   const [backendImage, setBackendImage] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [loading1, setLoading1] = useState(false)
+  const dispatch = useDispatch()
+  const {courseData} = useSelector((state) => state.course)
 
   const handleThumbnail = (e) => {
     const file = e.target.files[0]
@@ -72,9 +78,38 @@ const EditCourse = () => {
     try {
       const result = await axios.post(serverUrl+ `/api/course/editcourse/${courseId}`,formData, {withCredentials: true})
       console.log(result.data)
+
+      const updateData = result.data
+      if(updateData.isPublished){
+        const updateCourses = courseData.map((c) => c._id === courseId ? updateData : c)
+
+        if(!courseData.some(c => c._id === courseId)){
+          updateCourses.push(updateData)
+        }
+        dispatch(setCourseData(updateCourses))
+      } else {
+        const filterCourses = courseData.filter((c) => c._id !== courseId)
+        dispatch(setCourseData(filterCourses))
+      }
       setLoading(false)
       navigate("/courses")
       toast.success("Course updated successfully")
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+      toast.error(error.response.data.message)
+    }
+  }
+  const handleRemoveCourse = async () => {
+    setLoading1(true)
+    try {
+      const result = await axios.delete(serverUrl+ `/api/course/remove/${courseId}`, {withCredentials: true})
+      console.log(result.data)
+      const filterCourses = courseData.filter((c) => c._id !== courseId)
+      dispatch(setCourseData(filterCourses))
+      setLoading1(false)
+      navigate("/courses")
+      toast.success("Course deleted successfully")
     } catch (error) {
       console.log(error)
       setLoading(false)
@@ -100,7 +135,7 @@ const EditCourse = () => {
         <h2 className='text-lg font-medium  mb-4'>Basic Course Information</h2>
         <div className='space-x-2 space-y-2'>
           {!isPublished ? <button className='bg-green-100 text-green-600 px-4 py-2 rounded-md border-1 cursor-pointer' onClick={() => setIsPublished(prev => !prev)}>Click to Publish</button> : <button className='bg-red-100 text-red-600 px-4 py-2 rounded-md border-1 cursor-pointer' onClick={() => setIsPublished(prev => !prev)}>Click to Unpublish</button>}
-          <button className='bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer'>Remove Course</button>
+          <button className='bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer' onClick={handleRemoveCourse} disabled={loading1}>{loading1 ? "Removing..." : "Remove Course"}</button>
         </div>
 
         <form className='space-y-6' onSubmit={(e) => e.preventDefault()}>
