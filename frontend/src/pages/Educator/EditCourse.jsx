@@ -126,7 +126,7 @@ const EditCourse = () => {
         <h2 className='text-2xl font-semibold md:pl-[60px]'>Add Detail Information regarding courses
         </h2>
         <div className='space-x-2 space-y-2'>
-          <button className='bg-black text-white px-4 py-2 rounded-md'>Go to lecture page</button>
+          <button className='bg-black text-white px-4 py-2 rounded-md cursor-pointer' onClick={() => navigate(`/createlecture/${selectedCourse?._id}`)}>Go to lecture page</button>
         </div>
       </div>
 
