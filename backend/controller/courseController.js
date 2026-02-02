@@ -19,7 +19,7 @@ export const createCourse = async (req, res) => {
 
 export const getPublishedCourses = async (req, res) => {
     try {
-        const courses = await Course.find({ isPublished: true });
+        const courses = await Course.find({ isPublished: true }).populate("lectures");
         if(!courses){
             return res.status(404).json({ success: false, message: "No published courses found" });
         }
@@ -45,7 +45,7 @@ export const getCreatorCourses = async (req, res) => {
 export const editCourse = async (req, res) => {
     try {
         const { courseId } = req.params;
-        const { title, subTitle, description, category, level, isPublished, price } = req.body;
+        const { title, subtitle, description, category, level, isPublished, price } = req.body;
         let thumbnail 
         if(req.file){
             thumbnail = await uploadOnCloudinary(req.file.path);
@@ -56,7 +56,7 @@ export const editCourse = async (req, res) => {
         }
         const updateData = {
             title,
-            subTitle,
+            subtitle,
             description,
             category,
             level,

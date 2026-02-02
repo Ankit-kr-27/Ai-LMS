@@ -45,6 +45,22 @@ const EditLecture = () => {
     }
   }
 
+  const removeLecture = async () => {
+    setLoading1(true)
+    try {
+      const result = await axios.delete(serverUrl+ `/api/course/removelecture/${lectureId}`, {withCredentials: true})
+      console.log(result.data)
+      setLoading1(false)
+      navigate(`/createlecture/${courseId}`)
+      toast.success("Lecture removed successfully")
+    } catch (error) {
+      setLoading1(false)
+      console.log(error)
+      toast.error(error.response.data.message)
+ 
+    }
+  }
+
   return (
     <div className='min-h-screen bg-gray-100 flex items-center justify-center p-4'>
       <div className='w-full max-w-xl bg-white rounded-xl shadow-lg p-6 space-y-6'>
@@ -55,7 +71,7 @@ const EditLecture = () => {
           <h2 className='text-xl font-semibold text-gray-800'>Update course lecture</h2>
         </div>
 
-        <button className='mt-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-all text-sm cursor-pointer'>Remove Lecture</button>
+        <button className='mt-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-all text-sm cursor-pointer' onClick={removeLecture} disabled={loading1}>{loading1 ? "Removing..." : "Remove Lecture"}</button>
 
         <div className='space-y-4'>
           <div >
