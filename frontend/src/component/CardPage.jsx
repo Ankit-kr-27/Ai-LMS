@@ -18,7 +18,7 @@ const CardPage = () => {
 
         <div className='w-[100%] min-[100vh] flex items-center justify-center flex-wrap gap-[50px] lg:p-[50px] md:p-[30px] p-[10px] mb-[40px]'>
             {popularCourses?.map((course,index) => (
-                <Card key={index} thumbnail={course.thumbnail} title={course.title} category={course.category} price={course.price} id={course.id} />
+                <Card key={index} thumbnail={course.thumbnail} title={course.title} category={course.category} price={course.price} id={course._id} />
             ))}
         </div>
     </div>
