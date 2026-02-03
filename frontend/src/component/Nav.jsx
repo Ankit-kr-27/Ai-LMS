@@ -105,7 +105,7 @@ export const Nav = () => {
 
         {/* Mobile */}
         <GiHamburgerMenu
-          className='w-[30px] h-[30px] lg:hidden fill-black cursor-pointer'
+          className='fill-white w-[30px] h-[30px] lg:hidden cursor-pointer'
           onClick={() => setShowHam(prev => !prev)}
         />
 

@@ -12,9 +12,11 @@ import { setLectureData } from '../../redux/lectureSlice'
 const EditLecture = () => {
   const {lectureId, courseId} = useParams()
   const {lectureData} = useSelector((state) => state.lecture)
-  const selectedLecture = lectureData.find((lecture) => lecture._id === lectureId)
+  const selectedLecture = Array.isArray(lectureData)
+  ? lectureData.find(lecture => lecture._id === lectureId)
+  : null;
   const navigate = useNavigate()
-  const [lectureTitle, setLectureTitle] = useState(selectedLecture.lectureTitle)
+  const [lectureTitle, setLectureTitle] = useState(selectedLecture?.lectureTitle)
   const [vedioUrl, setVedioUrl] = useState("")
   const [isPreviewFree, setIsPreviewFree] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -31,11 +33,16 @@ const EditLecture = () => {
     try {
       const result = await axios.post(serverUrl+ `/api/course/editlecture/${lectureId}`, formdata, {withCredentials: true})
       console.log(result.data)
-      dispatch(setLectureData(...lectureData, result.data))
+      dispatch(
+  setLectureData(
+    lectureData.map(l =>
+      l._id === lectureId ? result.data : l
+    )
+  )
+);
       setLoading(false)
       navigate(`/createlecture/${courseId}`)
       toast.success("Lecture updated successfully")
-      navigate("/courses")
       setLoading(false)
     } catch (error) {
       console.log(error)
@@ -81,7 +88,7 @@ const EditLecture = () => {
 
           <div>
             <label className='block text-sm font-medium text-gray-700 mb-1' htmlFor="">Lecture Video*</label>
-            <input type="file" className='w-full p-3 border border-gray-300 rounded-md p-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-gray-700 file:text-white file:cursor-pointer hover:file:bg-gray-500 transition-all' required accept='video/*' onChange={(e) => setVedioUrl(e.target.value)} value={vedioUrl}/>
+            <input type="file" className='w-full p-3 border border-gray-300 rounded-md p-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-gray-700 file:text-white file:cursor-pointer hover:file:bg-gray-500 transition-all' required accept='video/*' onChange={(e) => setVedioUrl(e.target.files[0])} />
           </div>
 
           <div className='flex items-center gap-3'>

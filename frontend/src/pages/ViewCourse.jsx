@@ -7,6 +7,12 @@ import { useDispatch } from 'react-redux'
 import { setSelectedCourse } from '../redux/courseSlice'
 import { useEffect } from 'react'
 import img from "../assets/empty.jpg"
+import { IoIosPlayCircle } from "react-icons/io";
+import { CiLock } from "react-icons/ci";
+import { FaStar } from "react-icons/fa6";
+import axios from "axios"
+import { serverUrl } from '../App'
+import Card from '../component/Card';
 
 const ViewCourse = () => {
     const navigate = useNavigate()
@@ -14,6 +20,9 @@ const ViewCourse = () => {
     const {courseData} = useSelector((state) => state.course)
     const {selectedCourse} = useSelector((state) => state.course)
     const dispatch = useDispatch()
+    const [selectedLecture,setSelectedLecture] = useState(null)
+    const [creatorData, setCreatorData] = useState(null)
+    const [creatorCourses, setCreatorCourses] = useState([])
 
     const fetchCourseData = async () => {
        courseData.map((course) => {
@@ -27,8 +36,32 @@ const ViewCourse = () => {
     }
 
     useEffect(() => {
+
+        const handleCreator = async () => {
+          if(selectedCourse?.creator){
+            try {
+              const result = await axios.post(serverUrl + "/api/course/creator", {userId: selectedCourse?.creator}, {withCredentials: true})
+              console.log(result.data)
+              setCreatorData(result.data)
+            } catch (error) {
+              console.log(error)
+            }
+          }
+        }
+        handleCreator()
+    }, [selectedCourse])
+
+    useEffect(() => {
         fetchCourseData()
     }, [courseData,courseId])
+
+
+    useEffect(() => {
+      if(creatorData?._id && courseData.length > 0){
+        const creatorCourse = courseData.filter((course) => course.creator === creatorData._id && course._id !== courseId)
+        setCreatorCourses(creatorCourse)
+      }
+    }, [creatorData, courseData])
 
   return (
     <div className='min-h-screen bg-gray-50 p-6'>
@@ -79,6 +112,88 @@ const ViewCourse = () => {
               <ul className='list-disc pl-6 text-gray-700 space-y-1'>
                 <li>Learn {selectedCourse?.category} from Beginning</li>
               </ul>
+            </div>
+
+            <div>
+              <h2 className='text-xl font-semibold mb-2'>Who this course is for</h2>
+              <p className='text-gray-700'>Beginners, aspiring developers and professionals looking to upskill in {selectedCourse?.category}</p>
+            </div>
+
+            <div className='flex flex-col md:flex-row gap-6'>
+
+              <div className='bg-white w-full md:w-2/5 p-6 rounded-2xl shadow-lg border border-gray-200'>
+              <h2 className='text-xl font-bold mb-1 text-gray-800'>Course Curriculum</h2>
+              <p className='text-sm text-gray-500 mb-4'>
+                {selectedCourse?.lectures?.length} lectures
+              </p>
+
+              <div className='flex flex-col gap-3'>
+                {selectedCourse?.lectures?.map((lecture,index) => (
+                  <button key={index} disabled={!lecture.isPreviewFree} onClick={() => {
+                    if(lecture.isPreviewFree){
+                      setSelectedLecture(lecture)
+                  }}} className={`flex flex-center gap-3 px-4 py-3 rounded-lg border transition-all duration-200 text-left  ${lecture.isPreviewFree ? "hover:bg-gray-100 cursor-pointer" : "opacity-50 cursor-not-allowed"} ${selectedLecture?.lectureTitle === lecture?.lectureTitle ? "bg-gray-100 border-gray-400" : ""}`}  >
+                    <span className='text-lg text-gray-700'>{lecture.isPreviewFree ? <IoIosPlayCircle /> : <CiLock />}</span>
+                    <span className='text-sm font-medium text-gray-800'>{lecture.lectureTitle}</span>
+                  </button>
+                ))}
+
+              </div>
+              </div>
+
+              <div className='bg-white w-full md:w-3/5 p-6 rounded-2xl shadow-lg border border-gray-200'>
+
+              <div className='aspect-video w-full rounded-lg overflow-hidden mb-4 bg-black flex items-center justify-center'>
+
+                {selectedLecture?.vedioUrl ? <video src={selectedLecture?.vedioUrl} controls className='w-full h-full object-cover' /> : <span className='text-white text-sm'>Select a preview lecture to watch</span>}
+              </div>
+
+              </div>
+            </div>
+
+            <div className='mt-8 border-t pt-6'>
+              <h2 className='text-xl font-semibold mb-2'>Write a Review</h2>
+              <div className='mb-4'>
+                <div className='flex gap-1 mb-2'>
+                  {
+                    Array.from({length: 5}, (_, index) => (
+                      <span key={index} className='text-gray-300'>
+                        <FaStar />
+                      </span>
+                    ))
+                  }
+                </div>
+                <textarea  className="w-full border border-gray-200 rounded-lg p-2" placeholder="Write your review..." rows={4} />
+                <button className="bg-black text-white px-6 py-2 rounded hover:bg-gray-700 mt-3 cursor-pointer">Submit Review</button>
+              </div>
+
+            </div>
+
+            {/* for creator info */}
+            <div className='flex items-center gap-4 pt-4 border-t'>
+
+              {creatorData?.photoUrl? <img src={creatorData?.photoUrl} className='w-16 h-16 border-1 border-gray-200 rounded-full object-cover' alt="" /> : <img src={img} className='w-16 h-16 border-1 border-gray-200 rounded-full object-cover' alt="" /> }
+
+              <div>
+                <h2 className='text-lg font-semibold'>{creatorData?.name}</h2>
+                <p className='md:text-sm text-gray-600 text-[10px]'>{creatorData?.description}</p>
+                <p className='md:text-sm text-gray-600 text-[10px]'>{creatorData?.email}</p>
+
+              </div>
+            </div>
+
+            <div>
+              <p className='text-xl font-semibold mb-2'>Other Published courses by the educator</p>
+
+            </div>
+
+            <div className='w-full transition-all duration-300 py-[20px] flex items-start justify-center lg:justify-start flex-wrap gap-6 lg:px-[80px]'>
+              {
+                creatorCourses?.map((course,index) => (
+                  <Card key={index} thumbnail={course.thumbnail} id={course._id} title={course.title} price={course.price} category={course.category} rating={course.rating} />
+                ))
+              }
+
             </div>
 
 

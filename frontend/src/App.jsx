@@ -22,11 +22,13 @@ import AllCourses from './pages/AllCourses'
 import CreateLecture from './pages/Educator/CreateLecture'
 import EditLecture from './pages/Educator/EditLecture'
 import ViewCourse from './pages/ViewCourse'
+import ScrollToTop from './component/ScrollToTop'
 
 const App = () => {
   getCurrentUser()
   getCreatorCourse()
   getPublishedCourse()
+  ScrollToTop()
   const { userData } = useSelector((state) => state.user);
   return (
     <>

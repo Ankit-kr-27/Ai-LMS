@@ -5,7 +5,7 @@ const lectureSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    videoUrl:{
+    vedioUrl:{
         type:String,
     },
     isPreviewFree:{

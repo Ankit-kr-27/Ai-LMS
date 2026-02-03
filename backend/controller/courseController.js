@@ -1,6 +1,7 @@
 import Course from "../model/courseModel.js";
 import  uploadOnCloudinary  from "../config/cloudinary.js";
 import Lecture from "../model/lectureModel.js";
+import User from "../model/userModel.js";
 
 
 
@@ -136,29 +137,48 @@ export const getCourseLecture = async (req, res) => {
 }
 
 export const editLecture = async (req, res) => {
-    try {
-        const {lectureId} = req.params;
-        const {isPreviewFree, lectureTitle} = req.body;
-        const lecture = await Lecture.findById(lectureId)
-        if(!lecture){
-            return res.status(404).json({ success: false, message: "Lecture not found" });
-        }
-        let vedioUrl;
-        if(req.file){
-            vedioUrl = await uploadOnCloudinary(req.file.path);
-            lecture.videoUrl = vedioUrl
-        }
-        if(lectureTitle){
-            lecture.lectureTitle = lectureTitle
-        }
-        lecture.isPreviewFree = isPreviewFree
+  try {
+    const { lectureId } = req.params;
+    const { isPreviewFree, lectureTitle } = req.body;
 
-        await lecture.save()
-        return res.status(200).json(lecture);
-    } catch (error) {
-        return res.status(500).json({ success: false, error: error.message });
+    const lecture = await Lecture.findById(lectureId);
+    if (!lecture) {
+      return res.status(404).json({
+        success: false,
+        message: "Lecture not found",
+      });
     }
-}
+
+    if (req.file) {
+      const vedioUrl = await uploadOnCloudinary(req.file.path);
+      if (!vedioUrl) {
+        return res.status(500).json({
+          success: false,
+          message: "Video upload failed",
+        });
+      }
+      lecture.vedioUrl = vedioUrl;
+    }
+
+    if (lectureTitle) {
+      lecture.lectureTitle = lectureTitle;
+    }
+
+   
+    lecture.isPreviewFree = isPreviewFree === "true";
+
+    await lecture.save();
+    return res.status(200).json(lecture);
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 
 export const removeLecture = async (req, res) => {
     try {
@@ -169,6 +189,21 @@ export const removeLecture = async (req, res) => {
         }
         await Course.updateOne({lectures: lectureId}, {$pull: {lectures: lectureId}})
         return res.status(200).json({message: "Lecture deleted successfully"});
+    } catch (error) {
+        return res.status(500).json({ success: false, error: error.message });
+    }
+}
+
+//get creator 
+
+export const getCreatorById = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        const user = await User.findById(userId).select("-password");
+        if(!user){
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        return res.status(200).json(user);
     } catch (error) {
         return res.status(500).json({ success: false, error: error.message });
     }
