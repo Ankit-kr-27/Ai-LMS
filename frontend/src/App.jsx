@@ -24,6 +24,7 @@ import EditLecture from './pages/Educator/EditLecture'
 import ViewCourse from './pages/ViewCourse'
 import ScrollToTop from './component/ScrollToTop'
 import ViewLectures from './pages/ViewLectures'
+import MyEnrolledCourses from './pages/MyEnrolledCourses'
 
 const App = () => {
   getCurrentUser()
@@ -48,8 +49,9 @@ const App = () => {
       <Route path="/allcourses" element={userData ? <AllCourses/> : <Navigate to= {"/"}/>} />
       <Route path="/createlecture/:courseId" element={userData ?.role === "educator" ? <CreateLecture/> : <Navigate to= {"/"}/>} />
       <Route path="/editlecture/:courseId/:lectureId" element={userData ?.role === "educator" ? <EditLecture/> : <Navigate to= {"/"}/>} />
-      <Route path="/viewcourse/:courseId" element={userData ?.role === "educator" ? <ViewCourse/> : <Navigate to= {"/"}/>} />
-      <Route path="/viewlecture/:courseId" element={userData ?.role === "educator" ? <ViewLectures/> : <Navigate to= {"/"}/>} />
+      <Route path="/viewcourse/:courseId" element={userData ? <ViewCourse/> : <Navigate to= {"/"}/>} />
+      <Route path="/viewlecture/:courseId" element={userData ? <ViewLectures/> : <Navigate to= {"/"}/>} />
+      <Route path="/mycourses" element={userData ? <MyEnrolledCourses/> : <Navigate to= {"/signup"}/>} />
 
     </Routes>
     </>

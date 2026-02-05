@@ -96,7 +96,7 @@ export const Nav = () => {
               >
                 My Profile
               </span>
-              <span className='bg-black text-white px-[30px] py-[10px] rounded-2xl'>
+              <span className='bg-black text-white px-[30px] py-[10px] rounded-2xl cursor-pointer' onClick={() => navigate("/mycourses")}>
                 My Courses
               </span>
             </div>
@@ -129,12 +129,12 @@ export const Nav = () => {
             My Profile
           </div>
 
-          <div className='w-[200px] h-[50px] bg-black text-white flex items-center justify-center rounded-[10px]'>
+          <div className='w-[200px] h-[50px] bg-black text-white flex items-center justify-center rounded-[10px] cursor-pointer' onClick={() => navigate("/mycourses")}>
             My Courses
           </div>
 
           {userData?.role === "educator" && (
-            <div className='w-[200px] h-[50px] bg-black text-white flex items-center justify-center rounded-[10px]' onClick={() => navigate("/dashboard")}>
+            <div className='w-[200px] h-[50px] bg-black text-white flex items-center justify-center rounded-[10px] cursor-pointer' onClick={() => navigate("/dashboard")}>
               Dashboard
             </div>
           )}
