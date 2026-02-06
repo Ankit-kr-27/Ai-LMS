@@ -20,7 +20,7 @@ export const createCourse = async (req, res) => {
 
 export const getPublishedCourses = async (req, res) => {
     try {
-        const courses = await Course.find({ isPublished: true }).populate("lectures");
+        const courses = await Course.find({ isPublished: true }).populate("lectures reviews");
         if(!courses){
             return res.status(404).json({ success: false, message: "No published courses found" });
         }
