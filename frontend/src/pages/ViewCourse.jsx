@@ -26,6 +26,9 @@ const ViewCourse = () => {
     const [creatorData, setCreatorData] = useState(null)
     const [creatorCourses, setCreatorCourses] = useState([])
     const [isEnrolled, setIsEnrolled] = useState(false)
+    const [rating,setRating] = useState(0)
+    const [comment, setComment] = useState("")
+    const [loading,setLoading] = useState(false)
 
     const fetchCourseData = async () => {
        courseData.map((course) => {
@@ -119,6 +122,34 @@ const ViewCourse = () => {
   }
 };
 
+const handleReviewSubmit = async () => {
+  try {
+    setLoading(true)
+    const reviewData = await axios.post(serverUrl + "/api/review/createreview", {courseId, rating, comment}, {withCredentials: true})
+    toast.success("review added successfully")
+    console.log(reviewData.data)
+    setRating(0)
+    setComment("")
+    setLoading(false)
+    
+  } catch (error) {
+    toast.error(error.response.data.message)
+    setRating(0)
+    setComment("")
+    setLoading(false)
+  }
+}
+
+const calculateAvgReview = (reviews) => {
+  if(!reviews || reviews.length === 0){
+    return 0
+  }
+  const total = reviews.reduce((sum,review) => sum + review.rating,0)
+  return (total / reviews.length).toFixed(1)
+}
+
+const avgRating = calculateAvgReview(selectedCourse?.reviews)
+
 
   return (
     <div className='min-h-screen bg-gray-50 p-6'>
@@ -142,7 +173,7 @@ const ViewCourse = () => {
                   <div className='flex items-start flex-col justify-between'>
 
                     <div className='text-yellow-500 font-medium flex gap-2'>
-                      <span className='flex items-center justify-start gap-1'>{" "}5⭐</span>
+                      <span className='flex items-center justify-start gap-1'>{" "}{avgRating}⭐</span>
                       <span className='text-gray-400 '>(1,200 reviews)</span>
                     </div>
 
@@ -215,13 +246,13 @@ const ViewCourse = () => {
                   {
                     Array.from({length: 5}, (_, index) => (
                       <span key={index} className='text-gray-300'>
-                        <FaStar />
+                        <FaStar onClick={() => setRating(index + 1)} className={rating < index + 1 ? "text-gray-300" : "text-yellow-500"} />
                       </span>
                     ))
                   }
                 </div>
-                <textarea  className="w-full border border-gray-200 rounded-lg p-2" placeholder="Write your review..." rows={4} />
-                <button className="bg-black text-white px-6 py-2 rounded hover:bg-gray-700 mt-3 cursor-pointer">Submit Review</button>
+                <textarea onChange={(e) => setComment(e.target.value)} className="w-full border border-gray-200 rounded-lg p-2" placeholder="Write your review..." rows={4} />
+                <button onClick={handleReviewSubmit} className="bg-black text-white px-6 py-2 rounded hover:bg-gray-700 mt-3 cursor-pointer" disabled={loading}> {loading ? "Loading..." : "Submit Review"}</button>
               </div>
 
             </div>

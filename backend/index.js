@@ -8,6 +8,7 @@ import cors from "cors"
 import userRouter from './route/userRoute.js';
 import courseRouter from './route/courseRoute.js';
 import paymentRouter from './route/paymentRoute.js';
+import reviewRouter from './route/reviewRoute.js';
 
 const PORT = process.env.PORT || 8000;
 const app = express();
@@ -22,6 +23,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/course', courseRouter);
 app.use('/api/order', paymentRouter);
+app.use('/api/review', reviewRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

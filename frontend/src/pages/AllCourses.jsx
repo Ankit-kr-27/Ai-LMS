@@ -92,7 +92,7 @@ const AllCourses = () => {
       md:pl-[300px] flex items-start justify-center md:justify-start flex-wrap gap-6 px-[10px]'>
         {
           filterCourses?.map((course,index) => (
-            <Card key={index} thumbnail={course.thumbnail} title={course.title} category={course.category} price={course.price} id={course.id}/>
+            <Card key={index} thumbnail={course.thumbnail} title={course.title} category={course.category} price={course.price} id={course.id} reviews={course.reviews}/>
           ))
         }
       </main>
