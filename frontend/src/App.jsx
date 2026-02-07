@@ -26,6 +26,7 @@ import ScrollToTop from './component/ScrollToTop'
 import ViewLectures from './pages/ViewLectures'
 import MyEnrolledCourses from './pages/MyEnrolledCourses'
 import getAllReviews from './customHooks/getAllReviews'
+import SearchAi from './pages/SearchAi'
 
 const App = () => {
   getCurrentUser()
@@ -54,6 +55,7 @@ const App = () => {
       <Route path="/viewcourse/:courseId" element={userData ? <ViewCourse/> : <Navigate to= {"/"}/>} />
       <Route path="/viewlecture/:courseId" element={userData ? <ViewLectures/> : <Navigate to= {"/"}/>} />
       <Route path="/mycourses" element={userData ? <MyEnrolledCourses/> : <Navigate to= {"/signup"}/>} />
+      <Route path="/search" element={userData ? <SearchAi/> : <Navigate to= {"/signup"}/>} />
 
     </Routes>
     </>
