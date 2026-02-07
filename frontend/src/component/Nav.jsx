@@ -52,7 +52,7 @@ export const Nav = () => {
 
         {/* Logo */}
         <div className='lg:w-[20%] w-[40%] lg:pl-[50px]'>
-          <img src={logo} alt="" className="w-[60px] rounded-[5px] border-2 border-white" />
+          <img src={logo} alt="" className="w-[60px] rounded-[5px] border-2 border-white" onClick={() => navigate("/")}/>
         </div>
 
         {/* Desktop */}
