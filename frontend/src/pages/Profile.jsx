@@ -8,60 +8,106 @@ const Profile = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='min-h-screen bg-gray-100 px-4 py-10 flex items-center justify-center'>
-      <div className='bg-white shadow-lg rounded-2xl p-8 max-w-xl w-full relative'>
-        <FaArrowLeft
-          className='absolute top-[8%] left-[5%] w-[22px] h-[22px] cursor-pointer'
-          onClick={() => navigate("/")}
-        />
+    <div className="min-h-screen bg-[#f5f5f5] px-6 py-20 flex justify-center ">
 
-        <div className='flex flex-col items-center text-center'>
+      <div
+        className="
+        relative w-full max-w-xl
+        bg-white border border-black/10
+        rounded-2xl p-10
+        shadow-sm 
+        "
+      >
+        {/* Back */}
+        <button
+          onClick={() => navigate("/")}
+          className="
+          absolute top-6 left-6
+          flex items-center gap-2
+          text-2xl text-black/70
+          hover:text-black transition cursor-pointer
+          "
+        >
+          <FaArrowLeft />
+         
+        </button>
+
+        {/* Avatar */}
+        <div className="flex flex-col items-center text-center mt-6 ">
           {userData?.photoUrl ? (
             <img
-              src={`${userData.photoUrl}?t=${Date.now()}`}   // cache-bust
-              className='w-24 h-24 rounded-full object-cover border-4 border-black'
+              src={`${userData.photoUrl}?t=${Date.now()}`}
               alt="Profile"
+              className="
+              w-28 h-28 rounded-full object-cover
+              border border-black/20
+              "
             />
           ) : (
-            <div className='w-24 h-24 rounded-full text-white flex items-center justify-center text-[30px] border-2 bg-black border-white'>
+            <div
+              className="
+              w-28 h-28 rounded-full
+              bg-black text-white
+              flex items-center justify-center
+              text-3xl font-semibold
+              "
+            >
               {userData?.name?.slice(0, 1).toUpperCase()}
             </div>
           )}
 
-          <h2 className='text-2xl font-semibold mt-4 text-gray-800'>
+          <h2 className="text-2xl font-semibold mt-4">
             {userData?.name}
           </h2>
 
-          <p className='text-sm text-gray-500'>
+          <p className="text-sm text-black/60 capitalize">
             {userData?.role}
           </p>
         </div>
 
-        <div className='mt-6 space-y-4'>
-          <div className='text-sm flex items-center gap-1'>
-            <span className='font-semibold text-gray-700'>Email :</span>
-            <span>{userData?.email}</span>
+        {/* Info */}
+        <div className="mt-10 space-y-5 text-sm">
+
+          <div className="flex justify-between gap-4 border-b border-black/10 pb-2">
+            <span className="font-medium text-black/70">Email</span>
+            <span className="text-black/80 text-right">
+              {userData?.email}
+            </span>
           </div>
 
-          <div className='text-sm flex items-center gap-1'>
-            <span className='font-semibold text-gray-700'>Bio :</span>
-            <span>{userData?.description}</span>
+          <div className="flex justify-between gap-4 border-b border-black/10 pb-2">
+            <span className="font-medium text-black/70">Bio</span>
+            <span className="text-black/80 text-right">
+              {userData?.description || "—"}
+            </span>
           </div>
 
-          <div className='text-sm flex items-center gap-1'>
-            <span className='font-semibold text-gray-700'>Enrolled Courses :</span>
-            <span>{userData?.enrolledCourses?.length || 0}</span>
+          <div className="flex justify-between gap-4">
+            <span className="font-medium text-black/70">
+              Enrolled Courses
+            </span>
+            <span className="text-black/80">
+              {userData?.enrolledCourses?.length || 0}
+            </span>
           </div>
+
         </div>
 
-        <div className='mt-6 flex justify-center gap-4'>
+        {/* CTA */}
+        <div className="mt-10 flex justify-center">
           <button
-            className='px-5 py-2 rounded bg-black text-white active:bg-[#4b4b4b]'
             onClick={() => navigate("/editprofile")}
+            className="
+            px-6 py-2 rounded-xl
+            bg-black text-white
+            hover:bg-black/90
+            transition cursor-pointer
+            "
           >
             Edit Profile
           </button>
         </div>
+
       </div>
     </div>
   )

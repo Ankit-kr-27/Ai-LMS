@@ -6,28 +6,39 @@ import { BiSupport } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
 
 const Logos = () => {
+  const items = [
+    { icon: MdCastForEducation, text: "20k+ Online Courses" },
+    { icon: SiOpenaccess, text: "Lifetime Access" },
+    { icon: FaSackDollar, text: "Value for Money" },
+    { icon: BiSupport, text: "Lifetime Support" },
+    { icon: FaUsers, text: "Community Support" },
+  ]
+
   return (
-    <div className='w-[100vw] min-h-[90px] flex items-center justify-center flex-wrap gap-4 md:mb-[50px]'>
-        <div className='flex items-center justify-center gap-2 px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer text-[#03394b]'>
-            <MdCastForEducation className='w-[35px] h-[35px] fill-[#03394b]' />
-            20k+ online courses</div>
+    <section className="w-full py-10 flex justify-center">
+      <div className="flex flex-wrap items-center justify-center gap-4 max-w-6xl px-6">
 
-            <div className='flex items-center justify-center gap-2 px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer text-[#03394b]'>
-            <SiOpenaccess className='w-[35px] h-[35px] fill-[#03394b]' />
-            Lifetime Access</div>
+        {items.map(({ icon: Icon, text }) => (
+          <div
+            key={text}
+            className="
+            flex items-center gap-3
+            px-5 py-3 rounded-full
+            bg-black/5 backdrop-blur
+            border border-black/10
+            text-black/80
+            cursor-default
+            hover:bg-black hover:text-white
+            transition-all duration-300
+            "
+          >
+            <Icon className="w-6 h-6" />
+            <span className="text-sm font-medium">{text}</span>
+          </div>
+        ))}
 
-            <div className='flex items-center justify-center gap-2 px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer text-[#03394b]'>
-            <FaSackDollar className='w-[35px] h-[35px] fill-[#03394b]' />
-            Value for Money</div>
-
-            <div className='flex items-center justify-center gap-2 px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer text-[#03394b]'>
-            <BiSupport className='w-[35px] h-[35px] fill-[#03394b]' />
-            Lifetime support</div>
-
-            <div className='flex items-center justify-center gap-2 px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer text-[#03394b]'>
-            <FaUsers className='w-[35px] h-[35px] fill-[#03394b]' />
-            Community support</div>
-    </div>
+      </div>
+    </section>
   )
 }
 
