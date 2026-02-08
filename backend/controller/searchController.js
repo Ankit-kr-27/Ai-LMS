@@ -58,7 +58,7 @@ ${input}`
            contents: promt,
         });
 
-        const keyword = response.text
+        const keyword = response.text;
 
         const courses = await Course.find({
             isPublished: true,

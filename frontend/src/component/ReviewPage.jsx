@@ -13,7 +13,7 @@ const ReviewPage = () => {
 
 
   return (
-    <div className='flex items-center jutify-center flex-col'>
+    <div className='flex items-center jutify-center flex-col bg-[#f5f5f5]'>
         <h1 className='md:text-[45px] text-[30px] font-semibold text-center mt-[30px] px-[20px]'>Real Reviews From Real Students</h1>
         <span className='lg:w-[50%] md:w-[80%] text-[15px] text-center mt-[30px] mb-[30px] px-[20px]'>
             Discover How our Courses are transforming learning experience through real feedback from the students and professionals worldwide.

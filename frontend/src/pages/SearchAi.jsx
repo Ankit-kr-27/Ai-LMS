@@ -121,7 +121,7 @@ const SearchAi = () => {
               className="absolute right-14 bg-white rounded-full"
               onClick={() => handleRecommendation(input)}
             >
-              <img src={ai} className="w-10 h-10 p-2" alt="Search" />
+              <img src={ai} className="w-10 h-10 p-2 cursor-pointer" alt="Search"  />
             </button>
           )}
 
@@ -129,7 +129,7 @@ const SearchAi = () => {
             className="absolute right-2 bg-white rounded-full w-10 h-10 flex items-center justify-center"
             onClick={handleSearch}
           >
-            <RiMicAiFill className="w-5 h-5 text-[#cb87c5]" />
+            <RiMicAiFill className="w-5 h-5 text-[#cb87c5] cursor-pointer" />
           </button>
         </div>
       </div>
