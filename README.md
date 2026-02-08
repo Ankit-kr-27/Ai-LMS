@@ -3,6 +3,9 @@
 > **Empowering Education Through Technology**  
 > A comprehensive Learning Management System (LMS) designed to bridge the gap between instructors and students with seamless course management, secure payments, and interactive learning tools.
 
+
+[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://class-sync-y2ru.onrender.com/)
+
 ![License](https://img.shields.io/badge/license-ISC-blue.svg)
 ![Node](https://img.shields.io/badge/node-v14%2B-green.svg)
 ![React](https://img.shields.io/badge/react-v18%2B-blue.svg)
