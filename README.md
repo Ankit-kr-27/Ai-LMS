@@ -82,7 +82,7 @@ Experience the platform here:
 
 | Dashboard | Course View |
 | :---: | :---: |
-| ![Dashboard Placeholer](https://via.placeholder.com/600x300?text=Dashboard+UI) | ![Course Placeholder](https://via.placeholder.com/600x300?text=Course+Detail+View) |
+| ![Dashboard Placeholer](assets/dashboard.png) | ![Course Placeholder](assets/courses.png) |
 
 ## 🔮 Future Enhancements
 
