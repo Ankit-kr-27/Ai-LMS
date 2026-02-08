@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import getCurrentUser from './customHooks/getCurrentUser'
-export const serverUrl = "http://localhost:8000"
+export const serverUrl = "https://class-sync-nt6t.onrender.com"
 import Profile from './pages/Profile'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
