@@ -61,74 +61,13 @@ The application follows a **Client-Server Architecture** with a RESTful API:
 **High-Level Flow:**
 `User Request` ➡️ `React Frontend` ➡️ `Express API` ➡️ `Controller Logic` ➡️ `database/Third-Party Service` ➡️ `Response`
 
-## 🚀 Installation & Setup
+## 🌐 Live Demo
 
-Follow these steps to set up the project locally.
+Experience the platform here:  
+🔗 https://class-sync-y2ru.onrender.com/
 
-### Prerequisites
-*   Node.js (v14 or higher)
-*   MongoDB (Local or Atlas URI)
-*   Git
+> The live deployment showcases the complete functionality of the system.
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/your-username/class-sync-lms.git
-cd class-sync-lms
-```
-
-### 2. Backend Setup
-Navigate to the backend directory and install dependencies:
-```bash
-cd backend
-npm install
-```
-
-Create a `.env` file in the `backend` directory (see [Environment Variables](#-environment-variables)).
-
-Start the backend server:
-```bash
-npm run dev
-```
-
-### 3. Frontend Setup
-Open a new terminal navigate to the frontend directory:
-```bash
-cd frontend
-npm install
-```
-
-Start the development server:
-```bash
-npm run dev
-```
-
-The application should now be running at `http://localhost:5173` (Frontend) and `http://localhost:8000` (Backend).
-
-## 🔑 Environment Variables
-
-Create a `.env` file in the `backend` folder and add the following configuration:
-
-```env
-# Server Configuration
-PORT=8000
-MOGODB_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/lms_db
-
-# Security
-JWT_SECRET=your_super_secret_jwt_key
-
-# Cloudinary (File Uploads)
-CLOUDINARY_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-
-# Nodemailer (Email Service)
-USER_EMAIL=your_email@gmail.com
-USER_PASSWORD=your_email_app_password
-
-# Razorpay (Payments)
-RAZORPAY_KEY_ID=your_razorpay_key_id
-RAZORPAY_KEY_SECRET=your_razorpay_key_secret
-```
 
 ## 📡 API Overview
 
@@ -140,9 +79,6 @@ RAZORPAY_KEY_SECRET=your_razorpay_key_secret
 | **Payment** | `/api/order` | Process payments and verify transactions |
 | **Review** | `/api/review` | Add and retrieve course reviews |
 
-## 📸 Screenshots
-
-<!-- Add your screenshots here -->
 
 | Dashboard | Course View |
 | :---: | :---: |
