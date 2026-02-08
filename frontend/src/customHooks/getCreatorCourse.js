@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { serverUrl } from './getCurrentUser'
+import { serverUrl } from '../App'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useSelector } from "react-redux";
