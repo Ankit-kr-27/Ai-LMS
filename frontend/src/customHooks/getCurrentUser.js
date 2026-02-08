@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../redux/userSlice";
-export const serverUrl = "http://localhost:8000"
+import { serverUrl } from '../App'
 
 const getCurrentUser = () => {
     const dispatch = useDispatch()
