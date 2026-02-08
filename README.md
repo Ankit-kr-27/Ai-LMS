@@ -1,4 +1,4 @@
-# ClassSync LMS 🎓
+# ClassSync 🎓
 
 > **Empowering Education Through Technology**  
 > A comprehensive Learning Management System (LMS) designed to bridge the gap between instructors and students with seamless course management, secure payments, and interactive learning tools.
